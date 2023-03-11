@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZR26VFHP3K"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-ZR26VFHP3K');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nagpur</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <!-- <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style> -->
+</head>
+
+
+<body id="everything" style="background-color:lightyellow">
+    <center style="background-color:darkslategray"><img src="mm.jpg" style="background-color:darkslategray"> </center>
+    
+    <form id="form1" name="myform" style="width:80%; margin: auto;" onsubmit="search_name();return false;">
+        <div class="mb-3" style="padding:10px">
+            <input name="name" style="border-radius:20px; margin:auto;" type="text" class="form-control" id="name" placeholder="Name" aria-describedby="emailHelp">
+        </div>
+        <button style="display:block; margin:auto;" type="submit" class="btn btn-primary">Search Name</button>
+        <h1 id="res"></h1>
+    </form>
+    <h1 id="res"></h1>
+    <input id="savebtn" style="display:block; margin:auto;" class="btn btn-primary" type="button" onclick="printDiv();return false;" value="Save" />
+    <br>
+
+    <div id="table">
+        <table style="width: auto; margin: auto; text-align:center;" id="myTable" class="table table-responsive table-borderless table-striped table-earning">
+            <thead>
+                <tr>
+                    <th>Sr No.</th>
+                    <th>Name</th>
+                    <th>Polling Center</th>
+                </tr>
+            </thead>
+            <tbody id="testBody"></tbody>
+        </table>
+    </div>
+
+    <footer id="foot" style="margin: auto; padding:10px; text-align:center">
+      
+    </footer>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script>
+        function loadScript(url) {
+            var head = document.getElementsByTagName('head')[0];
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = url;
+            head.appendChild(script);
+        }
+
+        loadScript('array_2.js');
+        var str = ""
+
+        function loadTableData(items) {
+            var Table = document.getElementById("testBody");
+            Table.innerHTML = "";
+            const table = document.getElementById("testBody");
+            if (items.length == 0) {
+                let row = table.insertRow();
+                let sr = row.insertCell(0);
+                sr.innerHTML = "#";
+                let name = row.insertCell(1);
+                name.innerHTML = "No results found!";
+                let polling = row.insertCell(2);
+                polling.innerHTML = "#";
+            }
+            items.forEach(item => {
+                let row = table.insertRow();
+                let sr = row.insertCell(0);
+                sr.innerHTML = item.sr;
+                let name = row.insertCell(1);
+                name.innerHTML = item.name;
+                let polling = row.insertCell(2);
+                polling.innerHTML = item.poll;
+            });
+            // let row = table.insertRow();
+            // let foot = row.insertCell(0);
+            // let foot1 = row.insertCell(1);
+            // foot1.innerHTML = "Keshav Govekar";
+        }
+
+        function search_name() {
+            var result = new Array();
+            var res = "";
+            str = document.getElementById("name").value;
+            var items = new Array();
+
+            if (str == "" || str.length == 1) {
+                alert("Enter your name or address");
+                document.myform.name.focus();
+                return false;
+            }
+
+            const tokens = str.split(" ")
+            let num_tokens = tokens.length;
+
+            for (let i = 0; i < num_tokens; i++) {
+                var re = new RegExp(tokens[i], 'gi');
+                var temp_index = new Array();
+                for (let i = 0; i < name.length; i++) {
+                    if (name[i].match(re) != null) {
+                        temp_index.push(i);
+                    }
+                }
+                result.push(temp_index);
+            }
+
+            index = result.reduce((a, b) => a.filter(c => b.includes(c)));
+
+            for (let i = 0; i < index.length; i++) {
+
+                // console.log();
+                // console.log(index[i] + 1)
+                // console.log(name[index[i]]);
+                // console.log(address[index[i]]);
+
+                var item = new Object()
+
+                item.sr = index[i] + 1
+                item.name = name[index[i]]
+
+                if (Number(center[index[i]].substring(0, 3)) == 653) {
+                    item.poll = center[index[i]] + "yashwant mahavidyalay, wardha"
+                } else if (Number(center[index[i]].substring(0, 3)) == 654) {
+                    item.poll = center[index[i]] + "lok mahavidyalay"
+                } else if (Number(center[index[i]].substring(0, 3)) == 659) {
+                    item.poll = center[index[i]] + "Shrikrishnadas Jaju Gramin Sewa  Mahavidyalaya, Pipri."
+                } else if (Number(center[index[i]].substring(0, 3)) == 670) {
+                    item.poll = center[index[i]] + "Bapurao Deshmukh College  of Engineering, Sewagram."
+                } else if (Number(center[index[i]].substring(0, 3)) == 692) {
+                    item.poll = center[index[i]] + "Ram Meghe Institute of Pharmaceautical Science and  Research Borgaon (Meghe)"
+                } else if (Number(center[index[i]].substring(0, 3)) == 693) {
+                    item.poll = center[index[i]] + "S.N.J.College"
+                } else if (Number(center[index[i]].substring(0, 3)) == 697) {
+                    item.poll = center[index[i]] + "yashwant mahavidyalay, seloo"
+                } else if (Number(center[index[i]].substring(0, 3)) == 701) {
+                    item.poll = center[index[i]] + "bidkar college, hinghanghat"
+                } else if (Number(center[index[i]].substring(0, 3)) == 708) {
+                    item.poll = center[index[i]] + "vidyavikas mahavidyalay, samudrapur"
+                } else if (Number(center[index[i]].substring(0, 3)) == 714) {
+                    item.poll = center[index[i]] + "arts and science college, pulgaon"
+                } else if (Number(center[index[i]].substring(0, 3)) == 717) {
+                    item.poll = center[index[i]] + "arts , commerce and science college, arvi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 728) {
+                    item.poll = center[index[i]] + "samarth mahavidyalay, ashti"
+                } else if (Number(center[index[i]].substring(0, 3)) == 730) {
+                    item.poll = center[index[i]] + "model college, karanja"
+                } else if (Number(center[index[i]].substring(0, 3)) == 451) {
+                    item.poll = center[index[i]] + "J.M.Patel, Bhandara"
+                } else if (Number(center[index[i]].substring(0, 3)) == 452) {
+                    item.poll = center[index[i]] + "shashkiya mahavidyalay, bhandara"
+                } else if (Number(center[index[i]].substring(0, 3)) == 454) {
+                    item.poll = center[index[i]] + "pragati mahavidyalay"
+                } else if (Number(center[index[i]].substring(0, 3)) == 466) {
+                    item.poll = center[index[i]] + "kala vanijya, jawahar nagar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 469) {
+                    item.poll = center[index[i]] + "ashok moharkar college, adyal"
+                } else if (Number(center[index[i]].substring(0, 3)) == 470) {
+                    item.poll = center[index[i]] + "L.D.Belkhande college"
+                } else if (Number(center[index[i]].substring(0, 3)) == 474) {
+                    item.poll = center[index[i]] + "YCC Lakhandur"
+                } else if (Number(center[index[i]].substring(0, 3)) == 483) {
+                    item.poll = center[index[i]] + "samarth mahavidyalay, lakhni"
+                } else if (Number(center[index[i]].substring(0, 3)) == 490) {
+                    item.poll = center[index[i]] + "santaji college, palandur"
+                } else if (Number(center[index[i]].substring(0, 3)) == 492) {
+                    item.poll = center[index[i]] + "M.B.Patel, sakoli"
+                } else if (Number(center[index[i]].substring(0, 3)) == 501) {
+                    item.poll = center[index[i]] + "S.N.Mor, Tumsar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 509) {
+                    item.poll = center[index[i]] + "gopikabai bhure, tumsar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 511) {
+                    item.poll = center[index[i]] + "N.J.Patel, mohadi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 513) {
+                    item.poll = center[index[i]] + "motghare college"
+                } else if (Number(center[index[i]].substring(0, 3)) == 512) {
+                    item.poll = center[index[i]] + "arts college, sihora"
+                } else if (Number(center[index[i]].substring(0, 3)) == 551) {
+                    item.poll = center[index[i]] + "N.M.D. College"
+                } else if (Number(center[index[i]].substring(0, 3)) == 553) {
+                    item.poll = center[index[i]] + "S.S.Girls College"
+                } else if (Number(center[index[i]].substring(0, 3)) == 564) {
+                    item.poll = center[index[i]] + "jagat college, goregaon"
+                } else if (Number(center[index[i]].substring(0, 3)) == 569) {
+                    item.poll = center[index[i]] + "S.S.Jaiswal, arjuni morgaon"
+                } else if (Number(center[index[i]].substring(0, 3)) == 573) {
+                    item.poll = center[index[i]] + "rajiv gandhi college, sadak arjuni"
+                } else if (Number(center[index[i]].substring(0, 3)) == 581) {
+                    item.poll = center[index[i]] + "M.B.Patel Commerce, deori"
+                } else if (Number(center[index[i]].substring(0, 3)) == 585) {
+                    item.poll = center[index[i]] + "C.J.Patel, tirora"
+                } else if (Number(center[index[i]].substring(0, 3)) == 590) {
+                    item.poll = center[index[i]] + "M.B.Patel college, salekasa"
+                } else if (Number(center[index[i]].substring(0, 3)) == 596) {
+                    item.poll = center[index[i]] + "Bhavabhuti mahavidyalay"
+                } else if (Number(center[index[i]].substring(0, 3)) == 1) {
+                    item.poll = center[index[i]] + "Institute Of Science "
+                } else if (Number(center[index[i]].substring(0, 3)) == 4) {
+                    item.poll = center[index[i]] + "SFS"
+                } else if (Number(center[index[i]].substring(0, 3)) == 9) {
+                    item.poll = center[index[i]] + "Ramdeobaba"
+                } else if (Number(center[index[i]].substring(0, 3)) == 14) {
+                    item.poll = center[index[i]] + "Matru Seva Sangh bajaj nagar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 16) {
+                    item.poll = center[index[i]] + "Anjuman  sadar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 70) {
+                    item.poll = center[index[i]] + "Law college main "
+                } else if (Number(center[index[i]].substring(0, 3)) == 75) {
+                    item.poll = center[index[i]] + "Dharampeth Science"
+                } else if (Number(center[index[i]].substring(0, 3)) == 77) {
+                    item.poll = center[index[i]] + "LAD"
+                } else if (Number(center[index[i]].substring(0, 3)) == 80) {
+                    item.poll = center[index[i]] + "G S college "
+                } else if (Number(center[index[i]].substring(0, 3)) == 92) {
+                    item.poll = center[index[i]] + "M K Umathe bhamti road"
+                } else if (Number(center[index[i]].substring(0, 3)) == 94) {
+                    item.poll = center[index[i]] + "Nikalas Mahila "
+                } else if (Number(center[index[i]].substring(0, 3)) == 96) {
+                    item.poll = center[index[i]] + "Santaji"
+                } else if (Number(center[index[i]].substring(0, 3)) == 98) {
+                    item.poll = center[index[i]] + "Kalode College "
+                } else if (Number(center[index[i]].substring(0, 3)) == 100) {
+                    item.poll = center[index[i]] + "Shivaji Science"
+                } else if (Number(center[index[i]].substring(0, 3)) == 109) {
+                    item.poll = center[index[i]] + "Bhayyaji Pandharipande"
+                } else if (Number(center[index[i]].substring(0, 3)) == 115) {
+                    item.poll = center[index[i]] + "Mohta science"
+                } else if (Number(center[index[i]].substring(0, 3)) == 117) {
+                    item.poll = center[index[i]] + "C.P & Berar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 119) {
+                    item.poll = center[index[i]] + "Sewadal sakkardara"
+                } else if (Number(center[index[i]].substring(0, 3)) == 125) {
+                    item.poll = center[index[i]] + "Binzhani mahila  mahal"
+                } else if (Number(center[index[i]].substring(0, 3)) == 129) {
+                    item.poll = center[index[i]] + "Nandanvan mahila mahavidyalay"
+                } else if (Number(center[index[i]].substring(0, 3)) == 132) {
+                    item.poll = center[index[i]] + "Womens nandanvan"
+                } else if (Number(center[index[i]].substring(0, 3)) == 140) {
+                    item.poll = center[index[i]] + "Chakrapani hudkeshwar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 168) {
+                    item.poll = center[index[i]] + "Law college dighori"
+                } else if (Number(center[index[i]].substring(0, 3)) == 179) {
+                    item.poll = center[index[i]] + "Sindhu panchpaoli"
+                } else if (Number(center[index[i]].substring(0, 3)) == 180) {
+                    item.poll = center[index[i]] + "Dayanand jaripatka"
+                } else if (Number(center[index[i]].substring(0, 3)) == 182) {
+                    item.poll = center[index[i]] + "PWS kamptee road"
+                } else if (Number(center[index[i]].substring(0, 3)) == 183) {
+                    item.poll = center[index[i]] + "VMV"
+                } else if (Number(center[index[i]].substring(0, 3)) == 251) {
+                    item.poll = center[index[i]] + "JNC wadi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 269) {
+                    item.poll = center[index[i]] + "Raisoni hingna road"
+                } else if (Number(center[index[i]].substring(0, 3)) == 275) {
+                    item.poll = center[index[i]] + "Sant Gadge  Maharaj Mahavidyalaya, Hingna."
+                } else if (Number(center[index[i]].substring(0, 3)) == 277) {
+                    item.poll = center[index[i]] + "YCCE"
+                } else if (Number(center[index[i]].substring(0, 3)) == 278) {
+                    item.poll = center[index[i]] + "Priyadarshani hinga road"
+                } else if (Number(center[index[i]].substring(0, 3)) == 287) {
+                    item.poll = center[index[i]] + "Palloti wardha road"
+                } else if (Number(center[index[i]].substring(0, 3)) == 288) {
+                    item.poll = center[index[i]] + "sharadchandra arts college"
+                } else if (Number(center[index[i]].substring(0, 3)) == 301) {
+                    item.poll = center[index[i]] + "taywade College koradi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 308) {
+                    item.poll = center[index[i]] + "Sheshrao wankhede koradi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 311) {
+                    item.poll = center[index[i]] + "K.Z. Shrikhande kalmeshwar"
+                } else if (Number(center[index[i]].substring(0, 3)) == 315) {
+                    item.poll = center[index[i]] + "NIT College"
+                } else if (Number(center[index[i]].substring(0, 3)) == 316) {
+                    item.poll = center[index[i]] + "J D engineering"
+                } else if (Number(center[index[i]].substring(0, 3)) == 324) {
+                    item.poll = center[index[i]] + "sheshrao wankhade college"
+                } else if (Number(center[index[i]].substring(0, 3)) == 325) {
+                    item.poll = center[index[i]] + "nabira katol"
+                } else if (Number(center[index[i]].substring(0, 3)) == 333) {
+                    item.poll = center[index[i]] + "AD College"
+                } else if (Number(center[index[i]].substring(0, 3)) == 335) {
+                    item.poll = center[index[i]] + "vyas college, kondhali"
+                } else if (Number(center[index[i]].substring(0, 3)) == 337) {
+                    item.poll = center[index[i]] + "Rani Laxmibai College, Sawargaon"
+                } else if (Number(center[index[i]].substring(0, 3)) == 339) {
+                    item.poll = center[index[i]] + "Pandharinath College, Narkhed"
+                } else if (Number(center[index[i]].substring(0, 3)) == 341) {
+                    item.poll = center[index[i]] + "Jiwan Vikas  Arts College, Thugaondeo, Narkhed."
+                } else if (Number(center[index[i]].substring(0, 3)) == 343) {
+                    item.poll = center[index[i]] + "Nagar Parishad Mahavidyalay, Mowad"
+                } else if (Number(center[index[i]].substring(0, 3)) == 346) {
+                    item.poll = center[index[i]] + "Bhalerao College, Saoner"
+                } else if (Number(center[index[i]].substring(0, 3)) == 355) {
+                    item.poll = center[index[i]] + "Porwal kamptee"
+                } else if (Number(center[index[i]].substring(0, 3)) == 358) {
+                    item.poll = center[index[i]] + "Bhoyar college Pharmacy kamptee"
+                } else if (Number(center[index[i]].substring(0, 3)) == 369) {
+                    item.poll = center[index[i]] + "mahatma gandhi college, parshivni"
+                } else if (Number(center[index[i]].substring(0, 3)) == 370) {
+                    item.poll = center[index[i]] + "tidke college, ramtek"
+                } else if (Number(center[index[i]].substring(0, 3)) == 377) {
+                    item.poll = center[index[i]] + "bhosale college, kuhi"
+                } else if (Number(center[index[i]].substring(0, 3)) == 380) {
+                    item.poll = center[index[i]] + "lemdeo patil college, mandhal"
+                } else if (Number(center[index[i]].substring(0, 3)) == 381) {
+                    item.poll = center[index[i]] + "nutan adarsh college, umred"
+                } else if (Number(center[index[i]].substring(0, 3)) == 396) {
+                    item.poll = center[index[i]] + "Bhivapur Mahavidyalay"
+                } else if (Number(center[index[i]].substring(0, 3)) == 401) {
+                    item.poll = center[index[i]] + "D.D.Bhoyar college"
+                }
+
+                items.push(item)
+
+            }
+            // document.write(res);
+            console.log(items)
+            loadTableData(items);
+
+            return false;
+        }
+
+
+
+        function printDiv() {
+            document.getElementById("everything").style.fontSize = "50%";
+            document.getElementById("myTable").style.textAlign = "left";
+            document.getElementById("myTable").style.padding = "0px";
+            document.getElementById("myTable").style.width = "100%";
+            document.getElementById("myTable").className = "table table-sm table-responsive table-bordered";
+            document.getElementById("head").style.fontSize = "medium";
+            document.getElementById("head").style.padding = "0px";
+            document.getElementById("form1").style.display = "none";
+            document.getElementById("names").style.display = "none";
+            document.getElementById("savebtn").style.display = "none";
+            document.getElementById("vote").style.display = "none";
+            document.getElementById("foot").style.textAlign = "left";
+            // document.getElementById("foot").style.display = "block";
+            // document.getElementById("myTable").createTFoot().insertRow(0).insertCell(0).innerHTML = "Pranav Govekar";
+            document.title = str;
+            window.print();
+            // window.location.reload();
+        }
+    </script>
+</body>
+
+</html>
